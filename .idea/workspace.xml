@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e585d3e0-58ae-4b50-b4f0-6211649b18ac" name="Changes" comment="unversionfile">
+    <list default="true" id="e585d3e0-58ae-4b50-b4f0-6211649b18ac" name="Changes" comment="edit requirements.txt">
+      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sendMessageByTelegram.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sendPhotoByTelegram.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/background.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/telegramBot.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/panel.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/whatCanTradeToday.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/blog.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/sidebar-left.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sidebar-left.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/sidebar-right.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sidebar-right.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/single.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/single.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/bg_head.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/static/images/bg_head.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/less/styles.less" beforeDir="false" afterPath="$PROJECT_DIR$/static/less/styles.less" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,14 +41,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/kwz50/PycharmProjects/telebot"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\kwz50\PycharmProjects\telebot" />
+      <recent name="C:\Users\kwz50\PycharmProjects\telebot\templates" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="telebot" type="Python.FlaskServer">
       <module name="telebot" />
@@ -73,7 +88,8 @@
       <workItem from="1663692786379" duration="1948000" />
       <workItem from="1663694882028" duration="1002000" />
       <workItem from="1663762779778" duration="229000" />
-      <workItem from="1663763302533" duration="1253000" />
+      <workItem from="1663763302533" duration="4801000" />
+      <workItem from="1663770097250" duration="8749000" />
     </task>
     <task id="LOCAL-00001" summary="unversionfile">
       <created>1663764092734</created>
@@ -82,7 +98,21 @@
       <option name="project" value="LOCAL" />
       <updated>1663764092734</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="http to https">
+      <created>1663764574453</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1663764574453</updated>
+    </task>
+    <task id="LOCAL-00003" summary="edit requirements.txt">
+      <created>1663771122100</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1663771122100</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -101,9 +131,11 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="unversionfile" />
-    <option name="LAST_COMMIT_MESSAGE" value="unversionfile" />
+    <MESSAGE value="http to https" />
+    <MESSAGE value="edit requirements.txt" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit requirements.txt" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/telebot$telebot.coverage" NAME="telebot Coverage Results" MODIFIED="1663764055727" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/telebot$telebot.coverage" NAME="telebot Coverage Results" MODIFIED="1663778987284" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
