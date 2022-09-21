@@ -14,6 +14,7 @@ def reportByBot():
     for i in watchListToday:
         sendPhotoByTelegram.main(i)
 
+
 sched = BackgroundScheduler(daemon=True)
 sched.add_job(reportByBot, 'interval', minutes=30)
 sched.start()
