@@ -4,15 +4,28 @@ from flask import Flask
 from flask import render_template
 import sendPhotoByTelegram
 import whatCanTradeToday
+from datetime import datetime
 
 
 # t1 = threading.Thread(target=telegramBot.main(), daemon=True)
 # t1.start()  # start the bot in a thread instead
 
 def reportByBot():
-    watchListToday = whatCanTradeToday.main()
-    for i in watchListToday:
-        sendPhotoByTelegram.main(i)
+    now = datetime.now()
+    open0930pm = now
+    close0430am = now
+    if 5 >= now.hour >= 0:  # 過夜了
+        open0930pm = now.replace(day=now.day - 1, hour=21, minute=30, second=0, microsecond=0)
+        close0430am = now.replace(hour=4, minute=30, second=0, microsecond=0)
+    elif 24 >= now.hour >= 21:  # 未過夜
+        open0930pm = now.replace(hour=21, minute=30, second=0, microsecond=0)
+        close0430am = now.replace(day=now.day + 1, hour=4, minute=30, second=0, microsecond=0)
+    else:  # 不行運作的時候
+        pass
+    if open0930pm > now > close0430am:
+        watchListToday = whatCanTradeToday.main()
+        for i in watchListToday:
+            sendPhotoByTelegram.main(i)
 
 
 sched = BackgroundScheduler(daemon=True)
