@@ -16,7 +16,7 @@ def reportByBot():
 
 
 sched = BackgroundScheduler(daemon=True)
-sched.add_job(reportByBot, 'interval', minutes=10)
+sched.add_job(reportByBot, 'interval', minutes=1)
 sched.start()
 
 app = Flask(__name__)

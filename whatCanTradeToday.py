@@ -6,9 +6,7 @@ import numpy as np
 # https://blog.csdn.net/weixin_42213622/article/details/105852794
 import os
 import json
-import matplotlib
-
-matplotlib.use('TkAgg')
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 path, filename = os.path.split(os.path.abspath(__file__))  # 當前路徑及py檔名
