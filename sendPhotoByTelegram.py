@@ -1,8 +1,10 @@
 import os
 import requests
+from datetime import datetime
 
 
 def main(ticker_id):
+    now = datetime.now().strftime("%H:%M:%S")
     # https: // www.youtube.com / watch?v = NYT1KFE1X2o
     TOKEN = "5495772446:AAGcdNXEy5BbBo-QGxLcALw2HV-__mrcqlo"
     CHATID = "-1001423405758"
@@ -14,7 +16,7 @@ def main(ticker_id):
     method = "sendPhoto"
     chat_id = CHATID
     files = {'photo': open(file_path, 'rb')}
-    resp = requests.post(url + '/' + method + '?chat_id=' + chat_id + '&caption=' + ticker_id, files=files)
+    resp = requests.post(url + '/' + method + '?chat_id=' + chat_id + '&caption=' + ticker_id + '_' + now, files=files)
     # 送檔案可以用這個
     # resp = requests.post(url + '/' + 'sendDocument' + '?chat_id=' + chat_id + '&caption=' + ticker_id, files=files)
     print(resp.status_code)
