@@ -1,10 +1,12 @@
 import os
 import requests
 from datetime import datetime
+import pytz
 
 
 def main(ticker_id):
-    now = datetime.now().strftime("%H:%M:%S")
+    tw = pytz.timezone('Asia/Taipei')
+    now = datetime.now(tw).strftime("%H:%M:%S")
     # https: // www.youtube.com / watch?v = NYT1KFE1X2o
     TOKEN = "5495772446:AAGcdNXEy5BbBo-QGxLcALw2HV-__mrcqlo"
     CHATID = "-1001423405758"
