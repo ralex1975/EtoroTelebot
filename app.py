@@ -29,7 +29,7 @@ def reportByBot():
 
 
 sched = BackgroundScheduler(daemon=True)
-sched.add_job(reportByBot, 'interval', minutes=30)
+sched.add_job(reportByBot, 'interval', minutes=10)
 sched.start()
 
 app = Flask(__name__)
