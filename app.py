@@ -22,7 +22,7 @@ def reportByBot():
         close0430am = now.replace(day=now.day + 1, hour=4, minute=30, second=0, microsecond=0)
     else:  # 不行運作的時候
         pass
-    if open0930pm > now > close0430am:
+    if close0430am > now > open0930pm:
         watchListToday = whatCanTradeToday.main()
         for i in watchListToday:
             sendPhotoByTelegram.main(i)
