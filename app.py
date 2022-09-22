@@ -5,13 +5,14 @@ from flask import render_template
 import sendPhotoByTelegram
 import whatCanTradeToday
 from datetime import datetime
-
+import pytz
 
 # t1 = threading.Thread(target=telegramBot.main(), daemon=True)
 # t1.start()  # start the bot in a thread instead
 
 def reportByBot():
-    now = datetime.now()
+    tw = pytz.timezone('Asia/Taipei')
+    now = datetime.now(tw)
     open0930pm = now
     close0430am = now
     if 5 >= now.hour >= 0:  # 過夜了
