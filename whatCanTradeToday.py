@@ -12,7 +12,7 @@ matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
 path, filename = os.path.split(os.path.abspath(__file__))  # 當前路徑及py檔名
-save_file_dir = path + "\\"
+save_file_dir = path + "/"
 
 
 # 這是為了整理etoro格式寫的，for OneDay，for 50筆
@@ -26,14 +26,14 @@ def get_price_etoro(i, candle):
     front_key = "Candles"
     back_key = "RangeOpen"
     r_spliced = r_edit[(59 + len(i)):((r_edit.find(back_key)) - 2)]
-    with open(save_file_dir + 'etoro_price\\' + "_spliced.txt", mode="w") as file:
+    with open(save_file_dir + 'etoro_price/' + "_spliced.txt", mode="w") as file:
         file.write(r_spliced)
 
 
 # 這是為了用json看etoro檔案寫的
 def etoro_to_json(i):
-    input = open(save_file_dir + 'etoro_price\\' + "_spliced.txt", mode="r")
-    output = open(save_file_dir + 'etoro_price\\' + "_spliced_dict.txt", mode="w")
+    input = open(save_file_dir + 'etoro_price/' + "_spliced.txt", mode="r")
+    output = open(save_file_dir + 'etoro_price/' + "_spliced_dict.txt", mode="w")
     for line in input:
         output.write(line.replace("},{", "},\n{"))
     input.close()
@@ -42,8 +42,8 @@ def etoro_to_json(i):
 
 # 這是為了把json變成matrix
 def etoro_to_matrix(i):
-    x = open(save_file_dir + 'etoro_price\\' + "_spliced_dict.txt", mode="r")
-    # output1=open(Save_file_dir+'etoro_price\\'+"_matrix.txt"%i,mode="w")
+    x = open(save_file_dir + 'etoro_price/' + "_spliced_dict.txt", mode="r")
+    # output1=open(Save_file_dir+'etoro_price/'+"_matrix.txt"%i,mode="w")
     xr = json.loads(x.read())
     Date = []
     Open = []
@@ -151,15 +151,15 @@ def main():
             ticker_matrix = etoro_to_matrix(i)
             duration = ticker_matrix.set_index('Date')
             # duration = duration[duration.index >= '2019-01-01']#時間區段可改
-            duration.to_csv(save_file_dir + 'etoro_price\\' + str(name) + ".csv")
-            ticker_fine_matrix = pd.read_csv(save_file_dir + 'etoro_price\\' + '%s' % name + ".csv").set_index('Date')
+            duration.to_csv(save_file_dir + 'etoro_price/' + str(name) + ".csv")
+            ticker_fine_matrix = pd.read_csv(save_file_dir + 'etoro_price/' + '%s' % name + ".csv").set_index('Date')
             ticker_fine_matrix["SMA"] = sma(ticker_fine_matrix["Close"], 20)
             ticker_fine_matrix['upper_bb'], ticker_fine_matrix['lower_bb'] = bb(ticker_fine_matrix['Close'],
                                                                                 ticker_fine_matrix['SMA'], 20)
             buy_price, sell_price, bb_signal = implement_bb_strategy(ticker_fine_matrix['Close'],
                                                                      ticker_fine_matrix['lower_bb'],
                                                                      ticker_fine_matrix['upper_bb'])
-            ticker_fine_matrix.to_csv(save_file_dir + 'etoro_price\\' + str(name) + "_fine.csv")
+            ticker_fine_matrix.to_csv(save_file_dir + 'etoro_price/' + str(name) + "_fine.csv")
 
             # 落到布林外的，請考慮交易
             if (ticker_fine_matrix['upper_bb'][-1] < ticker_fine_matrix['Close'][-1]) or (
@@ -174,7 +174,7 @@ def main():
                 plt.scatter(ticker_fine_matrix.index, sell_price, marker='v', color='red', label='SELL', s=200)
                 plt.title('%s BB STRATEGY TRADING SIGNALS' % nameList[j])
                 plt.legend(loc='upper left')
-                plt.savefig(save_file_dir + 'etoro_price\\' + 'png\\' + '%s_BBplot' % nameList[j])
+                plt.savefig(save_file_dir + 'etoro_price/' + 'png/' + '%s_BBplot' % nameList[j])
                 # print(ticker_fine_matrix)
                 print("------------------------------------------------------")
                 # 記得清畫板

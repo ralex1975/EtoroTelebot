@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e585d3e0-58ae-4b50-b4f0-6211649b18ac" name="Changes" comment="[ignore]">
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sendPhotoByTelegram.py" beforeDir="false" afterPath="$PROJECT_DIR$/sendPhotoByTelegram.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/whatCanTradeToday.py" beforeDir="false" afterPath="$PROJECT_DIR$/whatCanTradeToday.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +109,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663862449231</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="[ignore]">
+      <created>1663862486790</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1663862486790</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

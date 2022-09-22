@@ -8,8 +8,8 @@ def main(ticker_id):
     TOKEN = "5495772446:AAGcdNXEy5BbBo-QGxLcALw2HV-__mrcqlo"
     CHATID = "-1001423405758"
     path, filename = os.path.split(os.path.abspath(__file__))  # 當前路徑及py檔名
-    save_file_dir = path + "\\"
-    file_path = save_file_dir + 'etoro_price\\' + 'png\\' + '%s_BBplot' % ticker_id + ".png"
+    save_file_dir = path + "/"
+    file_path = save_file_dir + 'etoro_price/' + 'png/' + '%s_BBplot' % ticker_id + ".png"
     print(file_path)  # C:\Users\kwz50\PycharmProjects\telebot\etoro_price\png
     url = f"https://api.telegram.org/bot{TOKEN}"
     method = "sendPhoto"
