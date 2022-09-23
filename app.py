@@ -30,7 +30,7 @@ def reportByBot():
 
 
 sched = BackgroundScheduler(daemon=True)
-sched.add_job(reportByBot, 'interval', minutes=10)
+sched.add_job(reportByBot, 'interval', minutes=5)
 sched.start()
 
 app = Flask(__name__)
@@ -73,4 +73,5 @@ def hello_world():  # put application's code here
 
 if __name__ == '__main__':
     # flask重啟時會有兩條執行續，不能讓他們都跑，不然會有兩張圖
-    app.run(use_reloader=False)
+    # app.run(debug=True, use_reloader=False)
+    app.run()
