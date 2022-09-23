@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e585d3e0-58ae-4b50-b4f0-6211649b18ac" name="Changes" comment="[modify] twice reload">
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+    <list default="true" id="e585d3e0-58ae-4b50-b4f0-6211649b18ac" name="Changes" comment="[modify] autologin">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +91,7 @@
       <workItem from="1663762779778" duration="229000" />
       <workItem from="1663763302533" duration="4801000" />
       <workItem from="1663770097250" duration="8749000" />
-      <workItem from="1663943106403" duration="4308000" />
+      <workItem from="1663943106403" duration="5748000" />
     </task>
     <task id="LOCAL-00001" summary="unversionfile">
       <created>1663764092734</created>
@@ -218,7 +219,21 @@
       <option name="project" value="LOCAL" />
       <updated>1663947147315</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="[modify] sched time">
+      <created>1663947742799</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1663947742799</updated>
+    </task>
+    <task id="LOCAL-00020" summary="[modify] autologin">
+      <created>1663948320142</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1663948320142</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -245,7 +260,9 @@
     <MESSAGE value="[modify] scheduling" />
     <MESSAGE value="[modify] merge project" />
     <MESSAGE value="[modify] twice reload" />
-    <option name="LAST_COMMIT_MESSAGE" value="[modify] twice reload" />
+    <MESSAGE value="[modify] sched time" />
+    <MESSAGE value="[modify] autologin" />
+    <option name="LAST_COMMIT_MESSAGE" value="[modify] autologin" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/telebot$telebot.coverage" NAME="telebot Coverage Results" MODIFIED="1663947031709" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
