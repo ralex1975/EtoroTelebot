@@ -9,34 +9,37 @@ import local_config
 def switch_to_virtual_position():
     try:  # executed depend on window size
         sidebar_button = driver.find_element(By.XPATH,
-                                             "/html/body/ui-layout/div/et-layout-main/div/div[2]/div[2]/div["
-                                             "2]/et-layout-header/div/div[1]/a/div")
+                                             "/html/body/app-root/et-layout-main/div/div[2]/div["
+                                             "1]/et-layout-sidenav/aside/div[3]/div[2]/a")
         sidebar_button.click()
         time.sleep(2)
     except selenium.common.exceptions.ElementNotInteractableException:
         pass
 
     switch_to_virtual_button = driver.find_element(By.XPATH,
-                                                   "/html/body/ui-layout/div/et-layout-main/div/div[2]/div["
-                                                   "1]/et-layout-sidenav/aside/div[3]/div[2]/a")
+                                                   '//*[@id="cdk-overlay-0"]/et-dialog-container/et-portfolio-toggle'
+                                                   '-account/div/div[3]/a')
     switch_to_virtual_button.click()
     time.sleep(2)
-    virtual_confirm_button = driver.find_element(By.LINK_TEXT, 'Switch to Virtual Portfolio')
-    virtual_confirm_button.click()
-    time.sleep(5)
+
+    # try:
+    #     virtual_confirm_button = driver.find_element(By.LINK_TEXT, 'Switch to Virtual Portfolio')
+    #     virtual_confirm_button.click()
+    #     time.sleep(5)
+    # except selenium.common.exceptions.ElementNotInteractableException:
+    #     pass
 
     my_watchlist_button = driver.find_element(By.XPATH,
-                                              "/html/body/ui-layout/div/et-layout-main/div/div[2]/div["
-                                              "1]/et-layout-sidenav/aside/div[2]/nav/ul/li[2]/a")
+                                              "/html/body/app-root/et-layout-main/div/div[2]/div["
+                                              "1]/et-layout-sidenav/aside/div[2]/nav/ul/li[2]/a/span[2]")
     my_watchlist_button.click()
     time.sleep(2)
 
 
 def buy(a):  # a=order no. in list
     buy_button = driver.find_element(By.XPATH,
-                                     '/html/body/ui-layout/div/et-layout-main/div/div[2]/div[2]/div['
-                                     '3]/div/ng-view/et-watchlist/div[2]/div/et-instrument-table/et-table/div['
-                                     '2]/div[%s]/div/div[2]/div[4]/div' % a)
+                                     '//*[@id="watchlist-instruments"]/div[2]/div[%s]/div/div[2]/div['
+                                     '4]/div/et-buy-sell-button/div/div[1]' % a)
     buy_button.click()
     time.sleep(2)
 
@@ -62,8 +65,9 @@ class MyApp:
         password = driver.find_element(By.XPATH, '//*[@id="password"]')
         password.click()
         password.send_keys("%s" % self.password)
-        login_button = driver.find_element(By.XPATH, "/html/body/ui-layout/div/et-layout-login/div/ng-view/et-login"
-                                                     "/et-login-sts/div/div/div/form/button")
+        login_button = driver.find_element(By.XPATH,
+                                           "/html/body/app-root/et-layout-main/div/div/div/div/div/ui-layout/ng-view"
+                                           "/et-login/et-login-sts/div/div/div/form/button")
         login_button.click()
         time.sleep(5)
 
