@@ -20,4 +20,4 @@
 1. create a main page
 2. open position with a click 
 3. close position with a click 
-4. check position with a click
+4. check positions with a click
