@@ -1,11 +1,11 @@
-import threading
+from datetime import datetime
+import pytz
 from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask
 from flask import render_template
 import sendPhotoByTelegram
 import whatCanTradeToday
-from datetime import datetime
-import pytz
+
 
 # t1 = threading.Thread(target=telegramBot.main(), daemon=True)
 # t1.start()  # start the bot in a thread instead
@@ -72,4 +72,5 @@ def hello_world():  # put application's code here
 #     return render_template('single.html')
 
 if __name__ == '__main__':
-    app.run()
+    # flask重啟時會有兩條執行續，不能讓他們都跑，不然會有兩張圖
+    app.run(use_reloader=False)
