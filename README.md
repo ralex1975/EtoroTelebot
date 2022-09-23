@@ -15,3 +15,9 @@
     https://drive.google.com/file/d/1WIVBSOXXoSdfN-0M6hUhFN8FWXoG8EcR/view?usp=sharing
 #### Demo in Heroku app with telegram bot
     https://drive.google.com/file/d/1ZQqjkHx6O02Nn7fkRiaDMwwxnQw-4pbd/view?usp=sharing
+
+## Possible Features (if I'm not busy in the future)
+1. create a main page
+2. open position with a click 
+3. close position with a click 
+4. check position with a click
