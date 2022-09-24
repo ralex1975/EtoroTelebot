@@ -74,4 +74,4 @@ def hello_world():  # put application's code here
 if __name__ == '__main__':
     # flask重啟時會有兩條執行續，不能讓他們都跑，不然會有兩張圖
     # app.run(debug=True, use_reloader=False)
-    app.run()
+    app.run(debug=True, port=os.getenv("PORT", default=5000))
