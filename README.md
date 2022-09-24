@@ -7,7 +7,7 @@
 3. open positions
 #### Demo Locally
     https://drive.google.com/file/d/1a5LGwJYYAsmHQJFpWiJyKPtz2ni_J-fg/view?usp=sharing
-## What-Can-Trade-Today (run in Heroku app)
+## What-Can-Trade-Today (run in [https://etorotelebot.herokuapp.com/](Heroku app) and backup with [https://etorotelebot-production.up.railway.app/](Railway app))
 ### Features：
 1. use BB strategy to check tickers
 2. BB strategy demo clip is on Google Drive now :
