@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 import pytz
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -11,6 +12,7 @@ import whatCanTradeToday
 # t1.start()  # start the bot in a thread instead
 
 def reportByBot():
+    print('job in')
     tw = pytz.timezone('Asia/Taipei')
     now = datetime.now(tw)
     open0930pm = now
@@ -30,7 +32,11 @@ def reportByBot():
 
 
 sched = BackgroundScheduler(daemon=True)
-sched.add_job(reportByBot, 'interval', minutes=15)
+# https://apscheduler.readthedocs.io/en/3.x/modules/triggers/interval.html?highlight=interval
+# sched.add_job(reportByBot, 'interval', minutes=30)
+# https://apscheduler.readthedocs.io/en/3.x/modules/triggers/cron.html?highlight=cron
+# sched.add_job(reportByBot, 'cron', day_of_week='mon-fri', hour=5, minute=30, end_date='2017-10-30')
+sched.add_job(reportByBot, 'cron', day_of_week='mon-fri', hour='21,4', minute=31)
 sched.start()
 
 app = Flask(__name__)
@@ -74,4 +80,4 @@ def hello_world():  # put application's code here
 if __name__ == '__main__':
     # flask重啟時會有兩條執行續，不能讓他們都跑，不然會有兩張圖
     # app.run(debug=True, use_reloader=False)
-    app.run(debug=True, port=os.getenv("PORT", default=5000))
+    app.run(debug=False, port=os.getenv("PORT", default=5000))
