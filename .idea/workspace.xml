@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e585d3e0-58ae-4b50-b4f0-6211649b18ac" name="Changes" comment="[modify] migrate to railway">
+    <list default="true" id="e585d3e0-58ae-4b50-b4f0-6211649b18ac" name="Changes" comment="[modify] change job to cron">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
@@ -98,7 +98,11 @@
       <workItem from="1664002041909" duration="3466000" />
       <workItem from="1664007875719" duration="2000" />
       <workItem from="1664008391300" duration="15000" />
-      <workItem from="1664030445021" duration="2007000" />
+      <workItem from="1664030445021" duration="2075000" />
+      <workItem from="1664039822789" duration="7000" />
+      <workItem from="1664125642352" duration="20000" />
+      <workItem from="1664125672674" duration="150000" />
+      <workItem from="1664201906659" duration="545000" />
     </task>
     <task id="LOCAL-00001" summary="unversionfile">
       <created>1663764092734</created>
@@ -268,7 +272,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664004268763</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="[modify] change job to cron">
+      <created>1664032509021</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1664032509021</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -299,7 +310,8 @@
     <MESSAGE value="[modify] autologin" />
     <MESSAGE value="[modify] migrate" />
     <MESSAGE value="[modify] migrate to railway" />
-    <option name="LAST_COMMIT_MESSAGE" value="[modify] migrate to railway" />
+    <MESSAGE value="[modify] change job to cron" />
+    <option name="LAST_COMMIT_MESSAGE" value="[modify] change job to cron" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/telebot$telebot.coverage" NAME="telebot Coverage Results" MODIFIED="1664032364930" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
