@@ -102,7 +102,7 @@
       <workItem from="1664039822789" duration="7000" />
       <workItem from="1664125642352" duration="20000" />
       <workItem from="1664125672674" duration="150000" />
-      <workItem from="1664201906659" duration="2383000" />
+      <workItem from="1664201906659" duration="2715000" />
     </task>
     <task id="LOCAL-00001" summary="unversionfile">
       <created>1663764092734</created>
@@ -307,7 +307,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664204032798</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="[modify] change job to cron">
+      <created>1664204317249</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1664204317249</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
