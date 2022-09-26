@@ -37,12 +37,12 @@ def reportByBot():
         sendPhotoByTelegram.main(i)
 
 
-sched = BackgroundScheduler(daemon=True)
+sched = BackgroundScheduler(timezone="Asia/Taipei", daemon=True)
 # https://apscheduler.readthedocs.io/en/3.x/modules/triggers/interval.html?highlight=interval
 # sched.add_job(reportByBot, 'interval', minutes=30)
 # https://apscheduler.readthedocs.io/en/3.x/modules/triggers/cron.html?highlight=cron
 # sched.add_job(reportByBot, 'cron', day_of_week='mon-fri', hour=5, minute=30, end_date='2017-10-30')
-sched.add_job(reportByBot, 'cron', day_of_week='mon-fri', hour='21,22,4', minute=56)
+sched.add_job(reportByBot, 'cron', day_of_week='mon-fri', hour='21,23,4', minute=3)
 sched.start()
 
 app = Flask(__name__)
