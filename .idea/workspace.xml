@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e585d3e0-58ae-4b50-b4f0-6211649b18ac" name="Changes" comment="[modify] change job to cron">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -101,7 +102,7 @@
       <workItem from="1664039822789" duration="7000" />
       <workItem from="1664125642352" duration="20000" />
       <workItem from="1664125672674" duration="150000" />
-      <workItem from="1664201906659" duration="568000" />
+      <workItem from="1664201906659" duration="1016000" />
     </task>
     <task id="LOCAL-00001" summary="unversionfile">
       <created>1663764092734</created>
@@ -285,7 +286,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664202460011</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="[modify] change job to cron">
+      <created>1664202482815</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1664202482815</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -7,17 +7,19 @@ from flask import render_template
 import sendPhotoByTelegram
 import whatCanTradeToday
 
-
 # t1 = threading.Thread(target=telegramBot.main(), daemon=True)
 # t1.start()  # start the bot in a thread instead
 
+tw = pytz.timezone('Asia/Taipei')
+now = datetime.now(tw)
+print(now)
+
+
 def reportByBot():
     print('job in')
-    tw = pytz.timezone('Asia/Taipei')
-    now = datetime.now(tw)
-    open0930pm = now
-    close0430am = now
-    print(now)
+
+    # open0930pm = now
+    # close0430am = now
     # if 5 >= now.hour >= 0:  # 過夜了
     #     open0930pm = now.replace(day=now.day - 1, hour=21, minute=30, second=0, microsecond=0)
     #     close0430am = now.replace(hour=4, minute=30, second=0, microsecond=0)
@@ -40,7 +42,7 @@ sched = BackgroundScheduler(daemon=True)
 # sched.add_job(reportByBot, 'interval', minutes=30)
 # https://apscheduler.readthedocs.io/en/3.x/modules/triggers/cron.html?highlight=cron
 # sched.add_job(reportByBot, 'cron', day_of_week='mon-fri', hour=5, minute=30, end_date='2017-10-30')
-sched.add_job(reportByBot, 'cron', day_of_week='mon-fri', hour='21,22,4', minute=31)
+sched.add_job(reportByBot, 'cron', day_of_week='mon-fri', hour='21,22,4', minute=40)
 sched.start()
 
 app = Flask(__name__)
