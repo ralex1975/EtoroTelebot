@@ -42,7 +42,7 @@ sched = BackgroundScheduler(daemon=True)
 # sched.add_job(reportByBot, 'interval', minutes=30)
 # https://apscheduler.readthedocs.io/en/3.x/modules/triggers/cron.html?highlight=cron
 # sched.add_job(reportByBot, 'cron', day_of_week='mon-fri', hour=5, minute=30, end_date='2017-10-30')
-sched.add_job(reportByBot, 'cron', day_of_week='mon-fri', hour='21,22,4', minute=40)
+sched.add_job(reportByBot, 'cron', day_of_week='mon-fri', hour='21,22,4', minute=56)
 sched.start()
 
 app = Flask(__name__)
@@ -50,7 +50,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():  # put application's code here
-    return render_template('panel.html')
+    return render_template('panel.html', system_datetime=datetime.now(), taipei_datetime=datetime.now(tw))
 
 
 #
@@ -86,4 +86,5 @@ def hello_world():  # put application's code here
 if __name__ == '__main__':
     # flask重啟時會有兩條執行續，不能讓他們都跑，不然會有兩張圖
     # app.run(debug=True, use_reloader=False)
-    app.run(debug=False, port=os.getenv("PORT", default=5000))
+    # app.run(debug=False, port=os.getenv("PORT", default=5000))
+    app.run(debug=True, port=os.getenv("PORT", default=5000))
