@@ -1,4 +1,4 @@
-# Etoro X Telebot
+# Etoro X Telebot 
 ## Auto-Login-and-Buy (run locally)
 ###### Etoro frequently changes their UI/UX, so it might not work now
 ### Features：
