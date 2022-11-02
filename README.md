@@ -15,6 +15,9 @@
     https://drive.google.com/file/d/1WIVBSOXXoSdfN-0M6hUhFN8FWXoG8EcR/view?usp=sharing
 #### Demo in Heroku app with telegram bot
     https://drive.google.com/file/d/1ZQqjkHx6O02Nn7fkRiaDMwwxnQw-4pbd/view?usp=sharing
+#### Demo screenshot on mobile device
+<img src="https://github.com/winterdrive/EtoroTelebot/blob/master/screenshot1.jpg" width="480" alt="screenshot1">
+<img src="https://github.com/winterdrive/EtoroTelebot/blob/master/screenshot2.jpg" width="480" alt="screenshot2">
 
 ## Possible Features (if I'm not busy in the future)
 1. create a main page
