@@ -6,7 +6,8 @@ from flask import Flask
 from flask import render_template
 import sendPhotoByTelegram
 import whatCanTradeToday
-
+import platform
+import socket
 # t1 = threading.Thread(target=telegramBot.main(), daemon=True)
 # t1.start()  # start the bot in a thread instead
 
@@ -48,8 +49,11 @@ sched.start()
 app = Flask(__name__)
 
 
+
 @app.route('/')
 def hello_world():  # put application's code here
+    print(platform.node())
+    print(socket.gethostname())
     return render_template('panel.html', system_datetime=datetime.now(), taipei_datetime=datetime.now(tw))
 
 
