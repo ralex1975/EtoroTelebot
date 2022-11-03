@@ -53,6 +53,14 @@ def hello_world():  # put application's code here
     return render_template('panel.html', system_datetime=datetime.now(), taipei_datetime=datetime.now(tw))
 
 
+@app.route('/tool')
+def sent_manually():  # put application's code here
+    watchListToday = whatCanTradeToday.main()
+    for i in watchListToday:
+        sendPhotoByTelegram.main(i)
+    return "images sent"
+
+
 #
 # @app.route('/about.html')
 # def about():
