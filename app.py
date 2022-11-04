@@ -53,41 +53,56 @@ sched = BackgroundScheduler(timezone="Asia/Taipei", daemon=True)
 # 正式用如下
 # sched.add_job(reportByBot, 'cron', day_of_week='mon-fri', hour='21,4', minute=31)
 # 測試用如下
-sched.add_job(reportByBot, 'cron', day_of_week='mon-fri', hour='11,12,21,4', minute=4)
+sched.add_job(reportByBot, 'cron', day_of_week='mon-fri',
+              hour='11,12,21,4', minute=4)
 
 sched.start()
 
 app = Flask(__name__)
 
 
-dictConfig(
-    {
-        "version": 1,
-        "formatters": {
-            "default": {
-                "format": "[%(asctime)s] %(levelname)s | %(module)s >>> %(message)s",
-                "datefmt": "%B %d, %Y %H:%M:%S",
-                # timezone取消，會有編碼問題
-                # "datefmt": "%B %d, %Y %H:%M:%S %Z",
-            }
+dictConfig = {
+    "version": 1,
+    "formatters": {
+        "default": {
+            "format": "[%(asctime)s] %(levelname)s | %(module)s >>> %(message)s",
+            "datefmt": "%B %d, %Y %H:%M:%S",
+        }
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "stream": "ext://sys.stdout",
+            "formatter": "default",
         },
-        "handlers": {
-            "console": {
-                "class": "logging.StreamHandler",
-                "stream": "ext://sys.stdout",
-                "formatter": "default",
-            },
-            "file": {
-                "class": "logging.FileHandler",
-                "filename": "flask.log",
-                "formatter": "default",
-                # "encoding": "utf-8"
-            },
+        "file": {
+            "class": "logging.FileHandler",
+            "filename": "flask.log",
+            "formatter": "default",
         },
-        "root": {"level": "DEBUG", "handlers": ["console", "file"]},
-    }
-)
+    },
+    "loggers": {
+        "console_logger": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "file_logger": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": False,
+        }
+    },
+    "root": {"level": "DEBUG", "handlers": ["console", "file"]},
+}
 
+# timezone取消，會有編碼問題
+# "datefmt": "%B %d, %Y %H:%M:%S %Z",
+# "encoding": "utf-8"
+
+logging.config.dictConfig(dictConfig)
+logger = logging.getLogger("file")
+logger.info('info message')
 
 # # 註冊一個函數，在處理第一個請求之前執行
 # @app.before_first_request
@@ -125,12 +140,12 @@ dictConfig(
 
 
 @app.route('/')
-def hello_world():  
+def hello_world():
     return render_template('panel.html', system_datetime=datetime.now(), taipei_datetime=datetime.now(tw))
 
 
 @app.route('/tool')
-def sent_manually():  
+def sent_manually():
     watchListToday = whatCanTradeToday.main()
     for i in watchListToday:
         sendPhotoByTelegram.main(i)
@@ -138,15 +153,15 @@ def sent_manually():
 
 
 @app.route('/log')
-def show_log():  
-    text=""
+def show_log():
+    text = ""
     with open("flask.log", mode="r") as log:
         # text=log
         for i in log.readlines():
             # print(i)
             # print(type(i))
-            text=text+i
-            text+='<br>'
+            text += i
+            text += '<br>'
     return text
 
 
@@ -156,9 +171,10 @@ if __name__ == '__main__':
     # app.logger = logging.getLogger('tdm')
     # app.logger.setLevel(logging.ERROR)
     # app.logger.addHandler(handler)
-
+    
     # flask重啟時會有兩條執行續，不能讓他們都跑，不然會有兩張圖(use_reloader=False)
     # app.run(debug=True, use_reloader=False)
     # app.run(debug=False, port=os.getenv("PORT", default=5000))
-    app.run(use_reloader=False,debug=False, port=os.getenv("PORT", default=5000))
+    app.run(use_reloader=False, debug=False,
+            port=os.getenv("PORT", default=5000))
     # app.run(debug=True, port=os.getenv("PORT", default=5000))
