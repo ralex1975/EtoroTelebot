@@ -47,4 +47,7 @@ pip install tzlocal==4.2
 pip install urllib3==1.26.12
 pip install Werkzeug==2.2.2
 pip install wsproto==1.2.0
-
+pip install uvicorn gunicorn
+@REM windows需要使用uvicorn開，gunicorn是for UNIX的
+@REM uvicorn好像也不行
+@REM vscode下python -m flask run這個指令

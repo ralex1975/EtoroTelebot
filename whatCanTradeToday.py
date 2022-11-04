@@ -189,8 +189,12 @@ def main():
     print("failList:", failList)
     if len(watchListToday) > 0:
         print("請考慮交易:", watchListToday)
+        with open("flask.log", mode="a") as log:
+            log.write("請考慮交易:"+ str(watchListToday)+" \n")
     else:
         print("本日不建議交易")
+        with open("flask.log", mode="a") as log:
+            log.write("本日不建議交易")
     # input()
     return watchListToday
 
