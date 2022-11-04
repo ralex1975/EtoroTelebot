@@ -114,15 +114,15 @@ logger.info('info message')
 # def before_request():
 #     print('before request started:'+request.url)
 
-# # 註冊一個函數，如果沒有未處理的異常拋出，在每次請求之後執行
-# @app.after_request
-# def after_request(response):
-#     timestamp = strftime('[%Y-%b-%d %H:%M]')
-#     ##有dictConfig後就都不需要這些app.logger了
-#     # app.logger.info('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
-#     # print('after request finished:'+request.url)
-#     response.headers['key'] = 'value'
-#     return response
+# 註冊一個函數，如果沒有未處理的異常拋出，在每次請求之後執行
+@app.after_request
+def after_request(response):
+    timestamp = strftime('[%Y-%b-%d %H:%M]')
+    ##有dictConfig後就都不需要這些app.logger了
+    app.logger.info('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
+    print('after request finished:'+request.url)
+    response.headers['key'] = 'value'
+    return response
 
 
 # # 註冊一個函數，如果有未處理的異常拋出，在每次請求之後執行
