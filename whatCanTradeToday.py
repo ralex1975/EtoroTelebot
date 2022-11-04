@@ -6,6 +6,8 @@ import numpy as np
 # https://blog.csdn.net/weixin_42213622/article/details/105852794
 import os
 import json
+from datetime import datetime
+import pytz
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
@@ -187,14 +189,16 @@ def main():
             print("failList:", failList)
             pass
     print("failList:", failList)
+    tw = pytz.timezone('Asia/Taipei')
+    now = datetime.now(tw).strftime("%Y-%m-%d,%H:%M:%S")
     if len(watchListToday) > 0:
         print("請考慮交易:", watchListToday)
         with open("flask.log", mode="a") as log:
-            log.write("請考慮交易:"+ str(watchListToday)+" \n")
+            log.write(now+"： 請考慮交易:"+ str(watchListToday)+" \n")
     else:
         print("本日不建議交易")
         with open("flask.log", mode="a") as log:
-            log.write("本日不建議交易")
+            log.write(now+"： 本日不建議交易")
     # input()
     return watchListToday
 
