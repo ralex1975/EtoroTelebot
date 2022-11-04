@@ -138,12 +138,13 @@ def sent_manually():
 def show_log():  
     text=""
     with open("flask.log", mode="r") as log:
-        for i in log.readlines():
-            # print(i)
-            # print(type(i))
-            text=text+i
-            text+='<br>'
-    return text
+        text=log
+        # for i in log.readlines():
+        #     # print(i)
+        #     # print(type(i))
+        #     text=text+i
+        #     text+='<br>'
+    return log
 
 
 if __name__ == '__main__':
