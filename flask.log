@@ -1,23 +1,4 @@
-[November 04, 2022 11:57:02 ¥x¥_¼Ð·Ç®É¶¡] INFO | _internal >>> [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+[November 04, 2022 13:51:27 ¥x¥_¼Ð·Ç®É¶¡] INFO | _internal >>> [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:5000
-[November 04, 2022 11:57:02 ¥x¥_¼Ð·Ç®É¶¡] INFO | _internal >>> [33mPress CTRL+C to quit[0m
-[November 04, 2022 11:57:23 ¥x¥_¼Ð·Ç®É¶¡] INFO | _internal >>> 127.0.0.1 - - [04/Nov/2022 11:57:23] "GET / HTTP/1.1" 200 -
-[November 04, 2022 11:57:27 ¥x¥_¼Ð·Ç®É¶¡] INFO | _internal >>> 127.0.0.1 - - [04/Nov/2022 11:57:27] "GET /log HTTP/1.1" 200 -
-[November 04, 2022 11:57:35 ¥x¥_¼Ð·Ç®É¶¡] INFO | _internal >>> 127.0.0.1 - - [04/Nov/2022 11:57:35] "GET /log HTTP/1.1" 200 -
-[November 04, 2022 11:57:36 ¥x¥_¼Ð·Ç®É¶¡] INFO | _internal >>> 127.0.0.1 - - [04/Nov/2022 11:57:36] "GET /log HTTP/1.1" 200 -
-[November 04, 2022 11:57:37 ¥x¥_¼Ð·Ç®É¶¡] INFO | _internal >>> 127.0.0.1 - - [04/Nov/2022 11:57:37] "GET /log HTTP/1.1" 200 -
-[November 04, 2022 12:00:31 ¥x¥_¼Ð·Ç®É¶¡] INFO | _internal >>> [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5000
-[November 04, 2022 12:00:31 ¥x¥_¼Ð·Ç®É¶¡] INFO | _internal >>> [33mPress CTRL+C to quit[0m
-[November 04, 2022 12:00:50 ¥x¥_¼Ð·Ç®É¶¡] INFO | _internal >>> 127.0.0.1 - - [04/Nov/2022 12:00:50] "GET /log HTTP/1.1" 200 -
-[November 04, 2022 12:00:54 ¥x¥_¼Ð·Ç®É¶¡] INFO | _internal >>> 127.0.0.1 - - [04/Nov/2022 12:00:54] "GET /log HTTP/1.1" 200 -
-[November 04, 2022 12:00:58 ¥x¥_¼Ð·Ç®É¶¡] INFO | _internal >>> 127.0.0.1 - - [04/Nov/2022 12:00:58] "GET /log HTTP/1.1" 200 -
-[November 04, 2022 12:01:01 ¥x¥_¼Ð·Ç®É¶¡] INFO | _internal >>> 127.0.0.1 - - [04/Nov/2022 12:01:01] "GET /log HTTP/1.1" 200 -
-[November 04, 2022 12:01:03 ¥x¥_¼Ð·Ç®É¶¡] INFO | _internal >>> 127.0.0.1 - - [04/Nov/2022 12:01:03] "GET /log HTTP/1.1" 200 -
-[November 04, 2022 12:01:41 ¥x¥_¼Ð·Ç®É¶¡] INFO | _internal >>> 127.0.0.1 - - [04/Nov/2022 12:01:41] "GET /log HTTP/1.1" 200 -
-[November 04, 2022 12:01:46 ¥x¥_¼Ð·Ç®É¶¡] INFO | _internal >>> 127.0.0.1 - - [04/Nov/2022 12:01:46] "GET /log HTTP/1.1" 200 -
-[November 04, 2022 12:03:39 ¥x¥_¼Ð·Ç®É¶¡] INFO | _internal >>> [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5000
-[November 04, 2022 12:03:39 ¥x¥_¼Ð·Ç®É¶¡] INFO | _internal >>> [33mPress CTRL+C to quit[0m
-[November 04, 2022 12:04:10 ¥x¥_¼Ð·Ç®É¶¡] INFO | _internal >>> 127.0.0.1 - - [04/Nov/2022 12:04:10] "GET /log HTTP/1.1" 200 -
-½Ð¦Ò¼{¥æ©ö:['goog'] 
+[November 04, 2022 13:51:27 ¥x¥_¼Ð·Ç®É¶¡] INFO | _internal >>> [33mPress CTRL+C to quit[0m
+[November 04, 2022 13:51:29 ¥x¥_¼Ð·Ç®É¶¡] INFO | _internal >>> 127.0.0.1 - - [04/Nov/2022 13:51:29] "GET /log HTTP/1.1" 200 -

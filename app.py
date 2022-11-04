@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import os
 from datetime import datetime
 import pytz
@@ -136,7 +139,9 @@ def show_log():
     text=""
     with open("flask.log", mode="r") as log:
         for i in log.readlines():
-            text+=i
+            # print(i)
+            # print(type(i))
+            text=text+i
             text+='<br>'
     return text
 
