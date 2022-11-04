@@ -66,7 +66,9 @@ dictConfig(
         "formatters": {
             "default": {
                 "format": "[%(asctime)s] %(levelname)s | %(module)s >>> %(message)s",
-                "datefmt": "%B %d, %Y %H:%M:%S %Z",
+                "datefmt": "%B %d, %Y %H:%M:%S",
+                # timezone取消，會有編碼問題
+                # "datefmt": "%B %d, %Y %H:%M:%S %Z",
             }
         },
         "handlers": {
@@ -79,6 +81,7 @@ dictConfig(
                 "class": "logging.FileHandler",
                 "filename": "flask.log",
                 "formatter": "default",
+                # "encoding": "utf-8"
             },
         },
         "root": {"level": "DEBUG", "handlers": ["console", "file"]},
@@ -138,13 +141,13 @@ def sent_manually():
 def show_log():  
     text=""
     with open("flask.log", mode="r") as log:
-        text=log
-        # for i in log.readlines():
-        #     # print(i)
-        #     # print(type(i))
-        #     text=text+i
-        #     text+='<br>'
-    return log
+        # text=log
+        for i in log.readlines():
+            # print(i)
+            # print(type(i))
+            text=text+i
+            text+='<br>'
+    return text
 
 
 if __name__ == '__main__':
