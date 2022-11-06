@@ -24,3 +24,34 @@
 2. open position with a click 
 3. close position with a click 
 4. check positions with a click
+
+
+
+## 效能提升
+2022/11/06 in localhost
+- V1 
+  - 4845個ticker, ticker number in each batch=10, thread number=1, bb std=2, 
+  - 結果：~=90分鐘(600張圖)
+  - 改善方向： 
+    - std=2條件過於寬鬆，執行交易也不一定會賺，可以考慮設更嚴格一點
+    - thread number=1，可以考慮多執行續處理
+- V2 
+  - 4845個ticker, ticker number in each batch=10, thread number=3, bb std=2,
+  - 結果：~=47分鐘(600張圖)，圖片異常，resp:429
+  - 改善方向：
+    - matplotlib非線程安全，所以會有Race Condition，圖片才會異常，須逐個製圖(by queue)
+      - https://matplotlib.org/3.1.0/faq/howto_faq.html?fbclid=IwAR3RjWyVS2fjFR9iLRiZvpfVcuQhPewDX3JK8ndRFDG7RwKqqoZ0FYzdVZM#working-with-threads
+    - telegram 會擋過於頻繁的request，須穩定依次發圖
+- V3
+  - 4845個ticker, ticker number in batch=100, thread number=5, bb std=3,
+  - 結果： ~=15分鐘(50張圖)
+  - 改善方向：
+    - 雖未使用queue，但429及製圖缺失已無再現，因為每批次執行數量提升，且bb std拉高，需製作及傳送的圖已大量減少
+    - 尚須考慮多主機執行時redis的上鎖問題
+      - https://developer.aliyun.com/article/677797
+      - https://blog.csdn.net/weixin_41754309/article/details/121419465
+      - https://cloud.tencent.com/developer/article/1574207
+      - https://zhuanlan.zhihu.com/p/112016634
+    - Lua腳本處理狀態職改變(111->999)，保證atomic，避免多執行續Race Condition產生的髒資料
+      - https://zhuanlan.zhihu.com/p/258890196
+    - 多主機任務分派(免費版只執行選定ticker，自己的主機再執行所有ticker)

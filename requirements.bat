@@ -33,6 +33,7 @@ pip install python-dateutil==2.8.2
 pip install python-telegram-bot==13.14
 pip install pytz==2022.2.1
 pip install pytz-deprecation-shim==0.1.0.post0
+pip install redis==4.3.4
 pip install requests==2.28.1
 pip install selenium==4.4.3
 pip install six==1.16.0

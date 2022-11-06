@@ -25,7 +25,8 @@ def main(ticker_id):
         files=files)
     # 送檔案可以用這個
     # resp = requests.post(url + '/' + 'sendDocument' + '?chat_id=' + chat_id + '&caption=' + ticker_id, files=files)
-    print(resp.status_code)
+    if resp.status_code != 200:
+        print(str(ticker_id)+':'+str(resp.status_code))
     return resp
 
 
