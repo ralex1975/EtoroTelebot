@@ -2,6 +2,7 @@
 import requests as req
 import json
 import redis
+import os
 
 # 簡易結構(詳細結構參考"20221105etoroTickers.txt")
 # myJson={"InstrumentDisplayDatas": [
@@ -70,49 +71,57 @@ import redis
 # ]
 # }
 
+# app.config['REDIS_HOST']=os.getenv('REDIS_HOST')
+# app.config['REDIS_PORT']=os.getenv('REDIS_PORT')
+# app.config['REDIS_PASSWORD']=os.getenv('REDIS_PASSWORD')
+# conn = redisService.get_redis_connection(app.config['REDIS_HOST'], app.config['REDIS_PORT'], app.config['REDIS_PASSWORD'])
+
 ETORO_DICT_KEY_NAME = "etoroDict"
 
+class Redis(object):
+    """
+    redis 數據操作
+    """
 
-def get_redis_connection(hostnameStr, portNumber, passwordStr=""):
-    return redis.Redis(host=hostnameStr, port=portNumber, password=passwordStr,charset="utf-8", decode_responses=True)
+    @staticmethod
+    def get_redis_connection():
+        return redis.Redis(host=os.getenv('REDIS_HOST'), port=os.getenv('REDIS_PORT'), password=os.getenv('REDIS_PASSWORD'),charset="utf-8", decode_responses=True)
 
+    @classmethod
+    def initialize_state_of_num_and_ticker_pairs_in_redis(self):
+        conn = self.get_redis_connection()
+        resp = req.get("https://api.etorostatic.com/sapi/instrumentsmetadata/V1.1/instruments")
+        data = resp.text
+        myJsonList = json.loads(data)["InstrumentDisplayDatas"]
+        myEtoroList = list()
+        for i in myJsonList:
+            # print(i["InstrumentID"])
+            # print(i["SymbolFull"])
+            myEtoroList.append(",".join([str(i["InstrumentID"]), str(i["SymbolFull"]).replace('.', '_')]))
+        # print(len(myEtoroList))
+        # print(myEtoroList[0])
+        myRedisScoreDict = dict()
+        for i in myEtoroList:
+            myRedisScoreDict[i] = 111
+        conn.zadd(ETORO_DICT_KEY_NAME, myRedisScoreDict)
+        # 最終結構是etoroDict(zset)內有4845條類似111:1,EURUSD的結構
+        print('reset redis by job')
+        return
 
-def initialize_state_of_num_and_ticker_pairs_in_redis(conn):
-    resp = req.get("https://api.etorostatic.com/sapi/instrumentsmetadata/V1.1/instruments")
-    data = resp.text
-    myJsonList = json.loads(data)["InstrumentDisplayDatas"]
-    myEtoroList = list()
-    for i in myJsonList:
-        # print(i["InstrumentID"])
-        # print(i["SymbolFull"])
-        myEtoroList.append(",".join([str(i["InstrumentID"]), str(i["SymbolFull"]).replace('.', '_')]))
-    # print(len(myEtoroList))
-    # print(myEtoroList[0])
-    myRedisScoreDict = dict()
-    for i in myEtoroList:
-        myRedisScoreDict[i] = 111
-    conn.zadd(ETORO_DICT_KEY_NAME, myRedisScoreDict)
-    # 最終結構是etoroDict(zset)內有4845條類似111:1,EURUSD的結構
-    return
+    @classmethod
+    def change_state_of_num_and_ticker_pairs_in_redis_when_finish(self, member: str):
+        conn = self.get_redis_connection()
+        conn.zadd(ETORO_DICT_KEY_NAME, {member: 999})
+        return
 
+    @classmethod
+    def get_member_in_initial_state(self, keyName: str):
+        conn = self.get_redis_connection()
+        myList = conn.zrangebyscore(keyName, '100', '120', start=0, num=100)
+        return myList
 
-def change_state_of_num_and_ticker_pairs_in_redis_when_finish(conn, member: str):
-    conn.zadd(ETORO_DICT_KEY_NAME, {member: 999})
-    return
-
-
-def get_member_in_initial_state(conn, keyName: str):
-    myList = conn.zrangebyscore(keyName, '100', '120', start=0, num=100)
-    return myList
-
-
-def get_member_in_finish_state(conn, keyName: str):
-    myList = conn.zrangebyscore(keyName, '888', '1000', start=0, num=100)
-    return myList
-
-
-# conn = get_redis_connection("localhost", 6379, "")
-# initialize_state_of_num_and_ticker_pairs_in_redis(conn)
-# change_state_of_num_and_ticker_pairs_in_redis_when_finish(conn, "1,EURUSD")
-# get_member_in_initial_state(conn, ETORO_DICT_KEY_NAME)
-# get_member_in_finish_state(conn, ETORO_DICT_KEY_NAME)
+    @classmethod
+    def get_member_in_finish_state(self, keyName: str):
+        conn = self.get_redis_connection()        
+        myList = conn.zrangebyscore(keyName, '888', '1000', start=0, num=100)
+        return myList
