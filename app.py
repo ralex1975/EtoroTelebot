@@ -14,6 +14,11 @@ from logging.config import dictConfig
 import os
 from redisService import Redis
 import jobService
+from dotenv import load_dotenv
+
+# 不加這行，整個系統都讀不到環境變數
+load_dotenv()
+
 
 tw = pytz.timezone('Asia/Taipei')
 now = datetime.now(tw)
@@ -143,5 +148,5 @@ if __name__ == '__main__':
     # app.run(debug=True, use_reloader=False)
     # app.run(debug=False, port=os.getenv("PORT", default=5000))
     app.run(use_reloader=False, debug=False,
-            port=os.getenv("PORT", default=5000))
+            port=os.getenv("PORT", default=8000))
     # app.run(debug=True, port=os.getenv("PORT", default=5000))
