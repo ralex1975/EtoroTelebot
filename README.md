@@ -57,7 +57,7 @@
       - railway測試，單次花費
 
 2022/11/07 in localhost connect remote redis
-- V1 
+- V4 
   - 4845個ticker, ticker number in batch=100, thread number=5, bb std=3,
   - 結果：時間拉長，因為Redis連線次數增加
   - 改善方向： 
