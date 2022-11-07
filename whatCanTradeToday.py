@@ -260,12 +260,14 @@ def main(num_ticker_dict, thread_number: str = "", bb_range: int = 3):
     dir_path = os.path.dirname(os.path.realpath(__file__))
     if len(watchListToday) > 0:
         print("請考慮交易:", watchListToday)
-        with open(dir_path + "\\flask.log", mode="a") as log:
-            log.write(now + "： 請考慮交易:" + str(watchListToday) + " \n")
+        if os.getenv('DEPLOY_SITE') != 'heroku':
+            with open(dir_path + "\\flask.log", mode="a") as log:
+                log.write(now + "： 請考慮交易:" + str(watchListToday) + " \n")
     # else:
-    #     print("本日不建議交易")
-    #     with open(dir_path+"\\flask.log", mode="a") as log:
-    #         log.write(now+"： 本日不建議交易")
+    #     if os.getenv('DEPLOY_SITE') != 'heroku':
+    #         print("本日不建議交易")
+    #         with open(dir_path+"\\flask.log", mode="a") as log:
+    #             log.write(now+"： 本日不建議交易")
     # input()
     return watchListToday
 
