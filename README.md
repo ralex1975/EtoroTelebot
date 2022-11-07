@@ -47,13 +47,14 @@
   - 結果： ~=15分鐘(50張圖)
   - 改善方向：
     - [x] 429及製圖缺失已無再現，因為每批次執行數量提升，且bb std拉高，需製作及傳送的圖已大量減少，但仍需使用queue使系統更robust
-    - [x] 尚須考慮多主機執行時redis的上鎖問題
+    - [ ] 尚須考慮多主機執行時redis的上鎖問題
       - https://developer.aliyun.com/article/677797
       - https://blog.csdn.net/weixin_41754309/article/details/121419465
       - https://cloud.tencent.com/developer/article/1574207
       - https://zhuanlan.zhihu.com/p/112016634
       - https://zhuanlan.zhihu.com/p/258890196
-    - [x] 多主機任務分派(免費版只執行選定ticker，自己的主機再執行所有ticker)
+    - [ ] 多主機任務分派(免費版只執行選定ticker，自己的主機再執行所有ticker)
+      - railway測試，單次花費
 
 2022/11/07 in localhost connect remote redis
 - V1 
