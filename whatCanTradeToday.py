@@ -164,8 +164,8 @@ def create_file_path():
 def pretreat_data_before_draw_bb_plot(nameList, j, i, candle, thread_number, bb_range: int):
     # 資料前處理
 
-    # name = thread_number + 'temp'  # 同檔案覆寫
-    name = nameList[j] + 'temp'  # 每個ticker各一個檔案
+    name = thread_number + 'temp'  # 同檔案覆寫
+    # name = nameList[j] + 'temp'  # 每個ticker各一個檔案
 
     get_price_etoro(i, candle, thread_number)
     ticker_matrix = etoro_to_matrix(i, thread_number)
