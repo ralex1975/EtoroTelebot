@@ -37,57 +37,59 @@ app = Flask(__name__)
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
-dictConfig = {
-    "version": 1,
-    "formatters": {
-        "default": {
-            "format": "[%(asctime)s] %(levelname)s | %(module)s >>> %(message)s",
-            "datefmt": "%B %d, %Y %H:%M:%S",
-        }
-    },
-    "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
-            "stream": "ext://sys.stdout",
-            "formatter": "default",
+#Heroku會找不到log存的位置，可能沒權限或沒給空間建
+if os.getenv('DEPLOY_SITE')!='heroku':
+    dictConfig = {
+        "version": 1,
+        "formatters": {
+            "default": {
+                "format": "[%(asctime)s] %(levelname)s | %(module)s >>> %(message)s",
+                "datefmt": "%B %d, %Y %H:%M:%S",
+            }
         },
-        "file": {
-            "class": "logging.FileHandler",
-            "filename": f'{dir_path}\\flask.log',
-            "formatter": "default",
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler",
+                "stream": "ext://sys.stdout",
+                "formatter": "default",
+            },
+            "file": {
+                "class": "logging.FileHandler",
+                "filename": f'{dir_path}\\flask.log',
+                "formatter": "default",
+            },
         },
-    },
-    "loggers": {
-        "console_logger": {
-            "handlers": ["console"],
-            "level": "INFO",
-            "propagate": False,
+        "loggers": {
+            "console_logger": {
+                "handlers": ["console"],
+                "level": "INFO",
+                "propagate": False,
+            },
+            "file_logger": {
+                "handlers": ["file"],
+                "level": "INFO",
+                "propagate": False,
+            }
         },
-        "file_logger": {
-            "handlers": ["file"],
-            "level": "INFO",
-            "propagate": False,
-        }
-    },
-    "root": {"level": "DEBUG", "handlers": ["console", "file"]},
-}
+        "root": {"level": "DEBUG", "handlers": ["console", "file"]},
+    }
 
+    logging.config.dictConfig(dictConfig)
+    logger = logging.getLogger("file")
+    logger.info('info message')
+else:
+    dictConfig={}
 
-logging.config.dictConfig(dictConfig)
-logger = logging.getLogger("file")
-logger.info('info message')
-
-
-# 註冊一個函數，如果沒有未處理的異常拋出，在每次請求之後執行
-@app.after_request
-def after_request(response):
-    timestamp = strftime('[%Y-%b-%d %H:%M]')
-    ##有dictConfig後就都不需要這些app.logger了
-    app.logger.info('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme,
-                    request.full_path, response.status)
-    print('after request finished:' + request.url)
-    response.headers['key'] = 'value'
-    return response
+# # 註冊一個函數，如果沒有未處理的異常拋出，在每次請求之後執行
+# @app.after_request
+# def after_request(response):
+#     timestamp = strftime('[%Y-%b-%d %H:%M]')
+#     ##有dictConfig後就都不需要這些app.logger了
+#     app.logger.info('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme,
+#                     request.full_path, response.status)
+#     print('after request finished:' + request.url)
+#     response.headers['key'] = 'value'
+#     return response
 
 @app.route('/')
 def hello_world():
