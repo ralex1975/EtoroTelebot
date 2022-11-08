@@ -15,6 +15,7 @@ def main(ticker_id):
     path, filename = os.path.split(os.path.abspath(__file__))  # 當前路徑及py檔名
     save_file_dir = path + "/"
     file_path = save_file_dir + 'etoro_price/' + 'png/' + '%s_BBplot' % ticker_id + ".png"
+    # print(file_path)
     # print(file_path)  # C:\Users\kwz50\PycharmProjects\telebot\etoro_price\png
     url = f"https://api.telegram.org/bot{TOKEN}"
     method = "sendPhoto"

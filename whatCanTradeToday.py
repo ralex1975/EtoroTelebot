@@ -57,8 +57,9 @@ https://candle.etoro.com/candles/desc.json/OneDay/50/3246
 
 
 # 這是為了整理etoro格式寫的，for OneDay，for 50筆
-def get_price_etoro(i, candle, thread_number: str = ""):
+def get_price_etoro(i, candle:int=50, thread_number: str = ""):
     url = "https://candle.etoro.com/candles/desc.json/OneDay/" + str(candle) + "/%s" % i
+    print(url)
     r_data = req.get(url).text
     # print(url + " get")
     # print("------------------------------------------------------")
@@ -161,19 +162,15 @@ def create_file_path():
         pass
 
 
-def pretreat_data_before_draw_bb_plot(nameList, j, i, candle, thread_number, bb_range: int):
+def pretreat_data_before_draw_bb_plot(ticker_name, ticker_num, thread_number, bb_range: int):
     # 資料前處理
 
-    name = thread_number + 'temp'  # 同檔案覆寫
-    # name = nameList[j] + 'temp'  # 每個ticker各一個檔案
+    # name = thread_number  # 同檔案覆寫
+    name = ticker_name  # 每個ticker各一個檔案
 
-    get_price_etoro(i, candle, thread_number)
-    ticker_matrix = etoro_to_matrix(i, thread_number)
+    get_price_etoro(ticker_num,50, thread_number)
+    ticker_matrix = etoro_to_matrix(ticker_num, thread_number)
     duration = ticker_matrix.set_index('Date')
-
-    # # duration = duration[duration.index >= '2019-01-01']#時間區段可改
-    # duration.to_csv(save_file_dir + 'etoro_price/' + str(name) + ".csv")
-    # ticker_fine_matrix = pd.read_csv(save_file_dir + 'etoro_price/' + '%s' % name + ".csv").set_index('Date')
 
     ticker_fine_matrix = duration
     ticker_fine_matrix["SMA"] = sma(ticker_fine_matrix["Close"], 20)
@@ -182,27 +179,40 @@ def pretreat_data_before_draw_bb_plot(nameList, j, i, candle, thread_number, bb_
     buy_price, sell_price, bb_signal = implement_bb_strategy(ticker_fine_matrix['Close'],
                                                              ticker_fine_matrix['lower_bb'],
                                                              ticker_fine_matrix['upper_bb'])
-    # ticker_fine_matrix.to_csv(save_file_dir + 'etoro_price/' + str(name) + "_fine.csv")
-    return ticker_fine_matrix, buy_price, sell_price
+
+    ticker_fine_matrix["bb_signal"]=bb_signal
+    ticker_fine_matrix["buy_price"]=buy_price
+    ticker_fine_matrix["sell_price"]=sell_price
+
+    # 落到布林外的，才考慮去存檔
+    if (ticker_fine_matrix['upper_bb'][-1] < ticker_fine_matrix['Close'][-1]) or (
+                ticker_fine_matrix['lower_bb'][-1] > ticker_fine_matrix['Close'][-1]):
+        ticker_fine_matrix.to_csv(save_file_dir + 'etoro_price/' + str(name) + "_fine.csv")
+        return True
+
+    return False
 
 
-def draw_bb_strategy_plot(ticker_fine_matrix, watchListToday, nameList, j, buy_price, sell_price):
+def draw_bb_strategy_plot(tickerName):
+    try:
+        ticker_fine_matrix = pd.read_csv(save_file_dir + 'etoro_price/' + '%s' % tickerName + "_fine.csv").set_index('Date')
+    except:
+        return
     # 落到布林外的，請考慮交易
     if (ticker_fine_matrix['upper_bb'][-1] < ticker_fine_matrix['Close'][-1]) or (
             ticker_fine_matrix['lower_bb'][-1] > ticker_fine_matrix['Close'][-1]):
         if ticker_fine_matrix['Close'].size < 10:  # 檢查有資料但圖片還是產不出來的情況
             return False
-        watchListToday.append(nameList[j])
         # 接著畫圖
         ticker_fine_matrix['Close'].plot(label='CLOSE PRICES', alpha=0.3)
         ticker_fine_matrix['upper_bb'].plot(label='UPPER BB', linestyle='--', linewidth=1, color='black')
         ticker_fine_matrix['SMA'].plot(label='MIDDLE BB', linestyle='--', linewidth=1.2, color='grey')
         ticker_fine_matrix['lower_bb'].plot(label='LOWER BB', linestyle='--', linewidth=1, color='black')
-        plt.scatter(ticker_fine_matrix.index, buy_price, marker='^', color='green', label='BUY', s=200)
-        plt.scatter(ticker_fine_matrix.index, sell_price, marker='v', color='red', label='SELL', s=200)
-        plt.title('%s BB STRATEGY TRADING SIGNALS' % nameList[j])
+        plt.scatter(ticker_fine_matrix.index, ticker_fine_matrix['buy_price'], marker='^', color='green', label='BUY', s=200)
+        plt.scatter(ticker_fine_matrix.index, ticker_fine_matrix['sell_price'], marker='v', color='red', label='SELL', s=200)
+        plt.title('%s BB STRATEGY TRADING SIGNALS' % tickerName)
         plt.legend(loc='upper left')
-        plt.savefig(save_file_dir + 'etoro_price/' + 'png/' + '%s_BBplot' % nameList[j])
+        plt.savefig(save_file_dir + 'etoro_price/' + 'png/' + '%s_BBplot' % tickerName)
         # print(ticker_fine_matrix)
         # print("------------------------------------------------------")
         # 記得清畫板
@@ -225,10 +235,7 @@ def draw_bb_strategy_plot(ticker_fine_matrix, watchListToday, nameList, j, buy_p
     #             '2318_hk', 'soxx', 'isrg', 'btc']
 """
 
-
-def main(num_ticker_dict, thread_number: str = "", bb_range: int = 3):
-    create_file_path()
-    candle = 50
+def make_num_ticker_list(num_ticker_dict):
     ticker = list()
     nameList = list()
     num_ticker = num_ticker_dict
@@ -237,22 +244,10 @@ def main(num_ticker_dict, thread_number: str = "", bb_range: int = 3):
     for i in num_ticker:
         ticker.append(i.split(",")[0])
         nameList.append(i.split(",")[1])
+    return ticker,nameList
 
-    failList = []
-    watchListToday = []
 
-    print(f'------------開始運行：{num_ticker}------------')
-    for i, j in zip(ticker, range(0, len(ticker))):
-        try:
-            bb_signal, buy_price, sell_price = pretreat_data_before_draw_bb_plot(nameList, j, i, candle, thread_number, bb_range)
-
-            draw_bb_strategy_plot(bb_signal, watchListToday, nameList, j, buy_price, sell_price)
-
-        except Exception as e:
-            print(e)
-            failList.append(nameList[j])
-            print("failList:", failList)
-            pass
+def out_put_log(watchListToday,failList):
     if len(failList) > 0:
         print("failList:", failList)
     tw = pytz.timezone('Asia/Taipei')
@@ -268,9 +263,49 @@ def main(num_ticker_dict, thread_number: str = "", bb_range: int = 3):
     #         print("本日不建議交易")
     #         with open(dir_path+"\\flask.log", mode="a") as log:
     #             log.write(now+"： 本日不建議交易")
-    # input()
+
+
+def singleton_main(num_ticker_dict, thread_number: str = "", bb_range: int = 3):
+    create_file_path()
+    ticker, nameList = make_num_ticker_list(num_ticker_dict)
+    
+    failList = []
+    watchListToday = []
+    print(f'------------開始運行：{num_ticker_dict}------------')
+    for i, j in zip(ticker, range(0, len(ticker))):
+        try:
+            pretreat_data_before_draw_bb_plot(nameList[j], i, thread_number, bb_range)
+            
+            result=draw_bb_strategy_plot(nameList[j])
+            if result:
+                watchListToday.append(nameList[j])
+        except Exception as e:
+            print(nameList[j])
+            print(e)
+            failList.append(nameList[j])
+            pass
+        
+    out_put_log(watchListToday,failList)
+
     return watchListToday
 
 
+# 減小顆粒度
+def singleton_bb_csv_module(ticker_name, ticker_num, thread_number, bb_range: int):
+    create_file_path()
+    return pretreat_data_before_draw_bb_plot(ticker_name, ticker_num, thread_number, bb_range)
+    
+
+# 減小顆粒度
+def singleton_bb_plot_module(tickerName):
+    create_file_path()
+    return draw_bb_strategy_plot(tickerName)
+
+
+# 減小顆粒度
+def singleton_bb_log_module(watchListToday,failList):
+    out_put_log(watchListToday,failList)
+
+
 if __name__ == '__main__':
-    main()
+    singleton_main()

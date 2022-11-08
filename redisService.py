@@ -77,6 +77,7 @@ import os
 # conn = redisService.get_redis_connection(app.config['REDIS_HOST'], app.config['REDIS_PORT'], app.config['REDIS_PASSWORD'])
 
 ETORO_DICT_KEY_NAME = "etoroDict"
+ETORO_WATCHLIST_TODAY_KEY_NAME="etoroWatchListToday"
 
 class Redis(object):
     """
@@ -125,3 +126,28 @@ class Redis(object):
         conn = self.get_redis_connection()        
         myList = conn.zrangebyscore(keyName, '888', '1000', start=0, num=100)
         return myList
+
+
+    @classmethod
+    def add_watchListToday_in_redis(self,tickerList):
+        conn = self.get_redis_connection()
+        for i in tickerList:
+            conn.sadd(ETORO_WATCHLIST_TODAY_KEY_NAME, i)
+        # print('member added')
+        return
+
+
+    @classmethod
+    def get_watchListToday_in_redis(self):
+        conn = self.get_redis_connection()
+        myList = conn.smembers(ETORO_WATCHLIST_TODAY_KEY_NAME)
+        # print('member get')
+        return myList 
+
+
+    @classmethod
+    def delete_watchListToday_element_in_redis(self,ticker_name):
+        conn = self.get_redis_connection()
+        myList = conn.srem(ETORO_WATCHLIST_TODAY_KEY_NAME,ticker_name)
+        # print('member get')
+        return myList 
