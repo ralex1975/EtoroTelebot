@@ -15,6 +15,7 @@ import os
 from redisService import Redis
 import jobService
 from dotenv import load_dotenv
+import asyncio
 
 # 不加這行，整個系統都讀不到環境變數
 load_dotenv()
@@ -106,7 +107,7 @@ def sent_manually():
     environment = request.values.get('env')
     print(environment)
     if environment=='master':
-        jobService.job_in_master()
+        asyncio.run(jobService.job_in_master())
     elif environment=='slave':
         jobService.job_in_slave()
     return "images sent"
@@ -150,3 +151,12 @@ if __name__ == '__main__':
     app.run(use_reloader=False, debug=False,
             port=os.getenv("PORT", default=8000))
     # app.run(debug=True, port=os.getenv("PORT", default=5000))
+
+# linux執行，
+    # 3 process，背景執行，自動重載
+    # gunicorn3 --workers=3 app:app --daemon --reload
+    # pkill gunicorn
+    # 砍掉當前所有進程
+# vscode執行
+    #python -m flask run
+
