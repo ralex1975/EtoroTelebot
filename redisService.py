@@ -77,7 +77,8 @@ import os
 # conn = redisService.get_redis_connection(app.config['REDIS_HOST'], app.config['REDIS_PORT'], app.config['REDIS_PASSWORD'])
 
 ETORO_DICT_KEY_NAME = "etoroDict"
-ETORO_WATCHLIST_TODAY_KEY_NAME="etoroWatchListToday"
+ETORO_WATCHLIST_TODAY_KEY_NAME = "etoroWatchListToday"
+
 
 class Redis(object):
     """
@@ -86,11 +87,12 @@ class Redis(object):
 
     @staticmethod
     def get_redis_connection():
-        return redis.Redis(host=os.getenv('REDIS_HOST'), port=os.getenv('REDIS_PORT'), password=os.getenv('REDIS_PASSWORD'),charset="utf-8", decode_responses=True)
+        return redis.Redis(host=os.getenv('REDIS_HOST'), port=os.getenv('REDIS_PORT'),
+                           password=os.getenv('REDIS_PASSWORD'), charset="utf-8", decode_responses=True)
 
     @classmethod
-    def initialize_state_of_num_and_ticker_pairs_in_redis(self):
-        conn = self.get_redis_connection()
+    def initialize_state_of_num_and_ticker_pairs_in_redis(cls):
+        conn = cls.get_redis_connection()
         resp = req.get("https://api.etorostatic.com/sapi/instrumentsmetadata/V1.1/instruments")
         data = resp.text
         myJsonList = json.loads(data)["InstrumentDisplayDatas"]
@@ -110,44 +112,43 @@ class Redis(object):
         return
 
     @classmethod
-    def change_state_of_num_and_ticker_pairs_in_redis_when_finish(self, member: str):
-        conn = self.get_redis_connection()
+    def change_state_of_num_and_ticker_pairs_in_redis_when_finish(cls, member: str):
+        conn = cls.get_redis_connection()
         conn.zadd(ETORO_DICT_KEY_NAME, {member: 999})
         return
 
     @classmethod
-    def get_member_in_initial_state(self, keyName: str):
-        conn = self.get_redis_connection()
+    def get_member_in_initial_state(cls, keyName: str):
+        conn = cls.get_redis_connection()
         myList = conn.zrangebyscore(keyName, '100', '120', start=0, num=100)
         return myList
 
     @classmethod
-    def get_member_in_finish_state(self, keyName: str):
-        conn = self.get_redis_connection()        
+    def get_member_in_finish_state(cls, keyName: str):
+        conn = cls.get_redis_connection()
         myList = conn.zrangebyscore(keyName, '888', '1000', start=0, num=100)
         return myList
 
-
     @classmethod
-    def add_watchListToday_in_redis(self,tickerList):
-        conn = self.get_redis_connection()
+    def add_watchListToday_in_redis(cls, tickerList):
+        conn = cls.get_redis_connection()
+        # conn.sadd(ETORO_WATCHLIST_TODAY_KEY_NAME, 'null')
         for i in tickerList:
             conn.sadd(ETORO_WATCHLIST_TODAY_KEY_NAME, i)
         # print('member added')
         return
 
-
     @classmethod
-    def get_watchListToday_in_redis(self):
-        conn = self.get_redis_connection()
+    def get_watchListToday_in_redis(cls):
+        conn = cls.get_redis_connection()
         myList = conn.smembers(ETORO_WATCHLIST_TODAY_KEY_NAME)
         # print('member get')
-        return myList 
-
+        return myList
 
     @classmethod
-    def delete_watchListToday_element_in_redis(self,ticker_name):
-        conn = self.get_redis_connection()
-        myList = conn.srem(ETORO_WATCHLIST_TODAY_KEY_NAME,ticker_name)
+    def delete_watchListToday_element_in_redis(cls, ticker_name):
+        conn = cls.get_redis_connection()
+        # 刪到空會整個key不見
+        myList = conn.srem(ETORO_WATCHLIST_TODAY_KEY_NAME, ticker_name)
         # print('member get')
-        return myList 
+        return myList

@@ -3,11 +3,11 @@ import threading
 import whatCanTradeToday
 import sendPhotoByTelegram
 
+conn = redisService.Redis.get_redis_connection()
 
-conn=redisService.Redis.get_redis_connection()
 
 def job_in_master():
-    mySendList=[]
+    mySendList = []
     remaining = len(redisService.Redis.get_member_in_initial_state(redisService.ETORO_DICT_KEY_NAME))
     # print(remaining)
     while remaining > 0:
@@ -18,15 +18,15 @@ def job_in_master():
             for ticker in num_ticker:
                 redisService.Redis.change_state_of_num_and_ticker_pairs_in_redis_when_finish(ticker)
             # 啟動執行續，處理csv
-            threads.append(threading.Thread(name=f'{i}', target=job_unit_csv_module, args=(num_ticker, str(i), 2)))
+            threads.append(threading.Thread(name=f'{i}', target=job_unit_csv_module, args=(num_ticker, str(i), 3)))
             threads[i].start()
         # 五條都做完再做下一批
         for i in range(5):
             threads[i].join()
 
-        mySet=redisService.Redis.get_watchListToday_in_redis()
-        mySendList+=list(mySet)
-        plot_result=job_unit_plot_module(mySet)#一張一張圖處理，因為線程不安全
+        mySet = redisService.Redis.get_watchListToday_in_redis()
+        mySendList += list(mySet)
+        job_unit_plot_module(mySet)  # 一張一張圖處理，因為線程不安全
         print("Done and Plotting the following list")
         print(mySet)
         remaining = len(redisService.Redis.get_member_in_initial_state(redisService.ETORO_DICT_KEY_NAME))
@@ -76,8 +76,8 @@ def job_in_test():
     job_unit(myList, bb_range=1)
 
 
-def job_unit(num_ticker, thread_number: str = "", bb_range = 2):
-    watchListToday = whatCanTradeToday.singleton_main(num_ticker, thread_number,bb_range)
+def job_unit(num_ticker, thread_number: str = "", bb_range=2):
+    watchListToday = whatCanTradeToday.singleton_main(num_ticker, thread_number, bb_range)
     for i in watchListToday:
         try:
             sendPhotoByTelegram.main(i)
@@ -85,25 +85,22 @@ def job_unit(num_ticker, thread_number: str = "", bb_range = 2):
             print(e)
 
 
-def job_unit_csv_module(num_ticker, thread_number: str = "", bb_range = 3):
-    watchListToday=[]
+def job_unit_csv_module(num_ticker, thread_number: str = "", bb_range=3):
+    watchListToday = []
     ticker, nameList = whatCanTradeToday.make_num_ticker_list(num_ticker)
     for i in range(len(nameList)):
-        result=whatCanTradeToday.singleton_bb_csv_module(nameList[i],ticker[i], thread_number, bb_range)
+        result = whatCanTradeToday.singleton_bb_csv_module(nameList[i], ticker[i], thread_number, bb_range)
         if result:
             watchListToday.append(nameList[i])
     redisService.Redis.add_watchListToday_in_redis(watchListToday)
-    
+
 
 def job_unit_plot_module(ticker_name_set):
     watchListToday = []
     for i in ticker_name_set:
         # print(i)
-        result=whatCanTradeToday.singleton_bb_plot_module(i)
+        result = whatCanTradeToday.singleton_bb_plot_module(i)
         if result:
             watchListToday.append(i)
         redisService.Redis.delete_watchListToday_element_in_redis(i)
     return watchListToday
-
-
-            

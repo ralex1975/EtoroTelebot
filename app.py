@@ -12,6 +12,7 @@ import logging
 from time import strftime
 from logging.config import dictConfig
 import os
+import redisService
 from redisService import Redis
 import jobService
 from dotenv import load_dotenv
@@ -96,6 +97,7 @@ else:
 #     response.headers['key'] = 'value'
 #     return response
 
+
 @app.route('/')
 def hello_world():
     return render_template('panel.html', system_datetime=datetime.now(), taipei_datetime=datetime.now(tw))
@@ -110,7 +112,6 @@ def sent_manually():
     elif environment=='slave':
         jobService.job_in_slave()
     return "images sent"
-
 
 
 @app.route('/tool-test',methods=['GET'])
@@ -142,6 +143,18 @@ def initialize_state_of_num_and_ticker_pairs_in_redis():
 def redis_connection_test():
     conn=Redis.get_redis_connection()
     return f'ping is {conn.ping()}'
+
+
+@app.route('/redis-set')
+def redis_set_test():
+    redisService.Redis.add_watchListToday_in_redis(['aaa', 'bbb'])
+    mySet = redisService.Redis.get_watchListToday_in_redis()
+    print(mySet)
+    for i in ['aaa', 'bbb']:
+        redisService.Redis.delete_watchListToday_element_in_redis(i)
+    mySet = redisService.Redis.get_watchListToday_in_redis()
+    print(mySet)
+    return "done"
 
 
 if __name__ == '__main__':
