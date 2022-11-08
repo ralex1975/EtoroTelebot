@@ -61,4 +61,4 @@
   - 4845個ticker, ticker number in batch=100, thread number=5, bb std=3,
   - 結果：時間拉長，因為Redis連線次數增加
   - 改善方向： 
-    - [ ] Lua腳本處理狀態值改變(111->999)，減少連線次數，並保證atomic，避免多執行續Race Condition產生的髒資料
+    - [ ] Lua腳本處理狀態值改變(111->999)，減少連線次數，並保證atomic，避免多執行續交互存取產生的髒資料
