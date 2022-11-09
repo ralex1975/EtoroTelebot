@@ -117,6 +117,32 @@ class Redis(object):
         conn.zadd(ETORO_DICT_KEY_NAME, {member: 999})
         return
 
+
+    @classmethod
+    def change_state_of_num_and_ticker_pairs_in_redis_when_finish_in_lua(cls):#快又穩，又保證原子性
+        conn = cls.get_redis_connection()
+        script="""
+        local key = KEYS[1]
+        local upper = ARGV[1]
+        local lower = ARGV[2]
+        local value = ARGV[3]
+        local myList = redis.call('ZRANGEBYSCORE',key,lower,upper,'LIMIT', 0, 100)  
+        for i,v in pairs(myList) do
+            redis.call('ZADD',key,value,v)  
+        end 
+        return myList
+        """
+        key = ETORO_DICT_KEY_NAME
+        upper=120
+        lower=100
+        value = 999
+        cmd = conn.register_script(script)
+        my_count=0
+        # 取值的也放lua裡面，return出來即可。「取值-->改狀態」，一氣呵成
+        result=cmd(keys=[key],args=[upper,lower,value])
+        return result
+
+
     @classmethod
     def get_member_in_initial_state(cls, keyName: str):
         conn = cls.get_redis_connection()

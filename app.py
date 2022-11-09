@@ -16,6 +16,9 @@ import redisService
 from redisService import Redis
 import jobService
 from dotenv import load_dotenv
+from redis import Redis as rs
+import time
+
 
 # 不加這行，整個系統都讀不到環境變數
 load_dotenv()
@@ -155,6 +158,58 @@ def redis_set_test():
     mySet = redisService.Redis.get_watchListToday_in_redis()
     print(mySet)
     return "done"
+
+
+@app.route('/lua-test')
+def redis_lua_test():
+    redis = redisService.Redis.get_redis_connection()
+    script="""
+    local key = KEYS[1]
+    local seconds = ARGV[1]
+    local value = ARGV[2]
+    redis.call('SETEX',key,seconds,value)
+    return redis.call('GET',key)    
+    """
+    cmd = redis.register_script(script)
+    result = cmd(keys=['key'],args=[100,'value'])
+    return f'done and return {result}'
+
+
+@app.route('/status-non-lua-test1')
+def redis_status_non_lua_test1():
+    time_start = time.time() #開始計時
+    for i in range(100):
+        num_ticker = redisService.Redis.get_member_in_initial_state(redisService.ETORO_DICT_KEY_NAME)
+        for ticker in num_ticker:
+            redisService.Redis.change_state_of_num_and_ticker_pairs_in_redis_when_finish(ticker)
+    time_end = time.time()    #結束計時
+    time_c= time_end - time_start   #執行所花時間
+    return f'done in {time_c}' #~300s
+
+
+@app.route('/status-non-lua-test2')
+def redis_status_non_lua_test2():
+    time_start = time.time() #開始計時
+    conn = redisService.Redis.get_redis_connection()
+    for i in range(100):
+        myList = conn.zrangebyscore(redisService.ETORO_DICT_KEY_NAME, '100', '120', start=0, num=100)
+        for member in myList:
+            conn.zadd(redisService.ETORO_DICT_KEY_NAME, {member: 999})
+    time_end = time.time()    #結束計時
+    time_c= time_end - time_start   #執行所花時間
+    return f'done in {time_c}' #46s~91s
+
+
+@app.route('/status-lua-test')
+def redis_status_lua_test():
+    time_start = time.time() #開始計時
+    my_count=0
+    for i in range(100):
+        result=redisService.Redis.change_state_of_num_and_ticker_pairs_in_redis_when_finish_in_lua()
+        my_count+=len(result)
+    time_end = time.time()    #結束計時
+    time_c= time_end - time_start   #執行所花時間
+    return f'done {my_count} in {time_c}' #1s~5s 快又穩，又保證原子性
 
 
 if __name__ == '__main__':

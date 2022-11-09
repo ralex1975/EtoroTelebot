@@ -14,9 +14,7 @@ def job_in_master():
         threads = []
         for i in range(5):  # 五條(太多條會429 too many request)
             # 啟動執行續前取出要執行的ticker，並在啟動下一條執行續前把狀態從未取用(111)改成已取用(999)，避免重複取
-            num_ticker = redisService.Redis.get_member_in_initial_state(redisService.ETORO_DICT_KEY_NAME)
-            for ticker in num_ticker:
-                redisService.Redis.change_state_of_num_and_ticker_pairs_in_redis_when_finish(ticker)
+            num_ticker = redisService.Redis.change_state_of_num_and_ticker_pairs_in_redis_when_finish_in_lua()
             # 啟動執行續，處理csv
             threads.append(threading.Thread(name=f'{i}', target=job_unit_csv_module, args=(num_ticker, str(i), 3)))
             threads[i].start()
