@@ -26,7 +26,7 @@
     - [x] thread number=1，改為多執行續thread number=3處理
   - 未來改善方向：
     1. matplotlib非線程安全，所以會有Race Condition，圖片才會異常，須逐個製圖(by queue or list)
-      - https://matplotlib.org/3.1.0/faq/howto_faq.html?fbclid=IwAR3RjWyVS2fjFR9iLRiZvpfVcuQhPewDX3JK8ndRFDG7RwKqqoZ0FYzdVZM#working-with-threads
+        - https://matplotlib.org/3.1.0/faq/howto_faq.html?fbclid=IwAR3RjWyVS2fjFR9iLRiZvpfVcuQhPewDX3JK8ndRFDG7RwKqqoZ0FYzdVZM#working-with-threads
     2. telegram 會擋過於頻繁的request(resp:429)，須穩定依次發圖
 - V3
   - 條件：4845個ticker, ticker number in batch=100, thread number=5, bb std=3,
@@ -48,8 +48,8 @@
     - [x] 製圖模組重構，解決多執行續下的資源競爭問題
     - [x] 發圖模組重構，以便後續處理resp:429問題
     - [x] 多主機任務分派(免費版只執行選定ticker，自己的主機再執行所有ticker)
-      - railway測試，單次花費
-      - ENVIRONMENT參數決定哪台主機是master哪台主機是slave
+        - railway測試，單次花費
+        - ENVIRONMENT參數決定哪台主機是master哪台主機是slave
   - 未來改善方向： 
     1. redis操作提速
 
@@ -65,11 +65,11 @@
   - 結果：~=19分鐘(12張圖)，
   - 未來改善方向：
     1. 檢驗多主機執行時redis是否需上鎖
-      - https://developer.aliyun.com/article/677797
-      - https://blog.csdn.net/weixin_41754309/article/details/121419465
-      - https://cloud.tencent.com/developer/article/1574207
-      - https://zhuanlan.zhihu.com/p/112016634
-      - https://zhuanlan.zhihu.com/p/258890196
+        - https://developer.aliyun.com/article/677797
+        - https://blog.csdn.net/weixin_41754309/article/details/121419465
+        - https://cloud.tencent.com/developer/article/1574207
+        - https://zhuanlan.zhihu.com/p/112016634
+        - https://zhuanlan.zhihu.com/p/258890196
     2. 極小化本機檔案儲存量，最好能只存圖不存csv
 
 
