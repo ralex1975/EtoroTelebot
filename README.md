@@ -8,12 +8,12 @@
 #### Demo in Heroku app with telegram bot
     https://drive.google.com/file/d/1ZQqjkHx6O02Nn7fkRiaDMwwxnQw-4pbd/view?usp=sharing
 #### Demo screenshot on mobile device
-<img src="https://github.com/winterdrive/EtoroTelebot/blob/master/screenshot1.jpg" width="480" alt="screenshot1">
-<img src="https://github.com/winterdrive/EtoroTelebot/blob/master/screenshot2.jpg" width="480" alt="screenshot2">
+<img src="https://github.com/winterdrive/EtoroTelebot/blob/master/static/images/screenshot1.jpg" width="480" alt="screenshot1">
+<img src="https://github.com/winterdrive/EtoroTelebot/blob/master/static/images/screenshot2.jpg" width="480" alt="screenshot2">
 
 
 #### subscribing the channel
-<img src="https://github.com/winterdrive/EtoroTelebot/blob/master/channelQRCODE.png" width="300" height="400" alt="screenshot3">
+<img src="https://github.com/winterdrive/EtoroTelebot/blob/master/static/images/channelQRCODE.png" width="300" height="400" alt="screenshot3">
 
 
 
