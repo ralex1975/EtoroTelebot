@@ -12,6 +12,11 @@
 <img src="https://github.com/winterdrive/EtoroTelebot/blob/master/screenshot2.jpg" width="480" alt="screenshot2">
 
 
+#### subscribing the channel
+<img src="https://github.com/winterdrive/EtoroTelebot/blob/master/channelQRCODE.png" width="300" height="400" alt="screenshot3">
+
+
+
 ## 效能提升
 ### 2022/11/06 in localhost
 - V1 
