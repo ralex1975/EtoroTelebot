@@ -16,12 +16,12 @@
 ### 2022/11/06 in localhost
 - V1 
   - 條件：4845個ticker, ticker number in each batch=10, thread number=1, bb std=2, 
-  - 結果：~=90分鐘(600張圖)
+  - 結果：~=***90分鐘(600張圖)***
   - 未來改善方向：
     1. 太慢，需提速
 - V2 
   - 條件：4845個ticker, ticker number in each batch=10, thread number=3, bb std=2,
-  - 結果：~=47分鐘(600張圖)，圖片異常，resp:429
+  - 結果：~=***47分鐘(600張圖)***，圖片異常，resp:429
   - 更新項目：
     - [x] thread number=1，改為多執行續thread number=3處理
   - 未來改善方向：
@@ -30,7 +30,7 @@
     2. telegram 會擋過於頻繁的request(resp:429)，須穩定依次發圖
 - V3
   - 條件：4845個ticker, ticker number in batch=100, thread number=5, bb std=3,
-  - 結果： ~=15分鐘(50張圖)
+  - 結果： ~=***15分鐘(50張圖)***
   - 更新項目：
     - [x] std=2條件過於寬鬆，更改為std=3
     - [x] 429及製圖缺失大量減少，因為每批次執行數量提升，且bb std拉高，需製作及傳送的圖已大量減少，但仍需使用queue使系統更robust
@@ -42,7 +42,7 @@
 ### 2022/11/07 in localhost connect remote redis
 - V4 
   - 條件：4845個ticker, ticker number in batch=100, thread number=5, bb std=3,
-  - 結果：~=27分鐘(不含發圖)，時間拉長，因為Redis連線次數增加
+  - 結果：~=***27分鐘(不含發圖)***，時間拉長，因為Redis連線次數增加
   - 更新項目：
     - [x] 重構資料處理流程，減少中繼檔案數量
     - [x] 製圖模組重構，解決多執行續下的資源競爭問題
@@ -62,7 +62,7 @@
       1. 每個動作都取一次連線(100次連線後查詢+4845次連線後更新)：~300s
       2. 取一次連線後執行查及改(1次連線+100次查詢+4845次更新)：46s~91s
       3. 取一次連線後送LUA腳本(100次連線後執行LUA腳本)：1s~5s
-  - 結果：~=19分鐘(12張圖)，
+  - 結果：~=***19分鐘(12張圖)***，
   - 未來改善方向：
     1. 檢驗多主機執行時redis是否需上鎖
         - https://developer.aliyun.com/article/677797
